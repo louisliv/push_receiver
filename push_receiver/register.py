@@ -175,11 +175,11 @@ def register(sender_id, app_id):
   """register gcm and fcm tokens for sender_id"""
   subscription = gcm_register(appId=app_id)
   if (subscription == None):
-    raise Error("Unable to establish subscription with Google Cloud Messaging.")
+    raise RuntimeError("Unable to establish subscription with Google Cloud Messaging.")
   __log.debug(f'GCM subscription: {subscription}')
   fcm = fcm_register(sender_id=sender_id, token=subscription["token"])
   __log.debug(f'FCM registration: {fcm}')
   res = {"gcm": subscription}
   res.update(fcm)
-  __log.debug(f"Credential: {credentials}")
+  __log.debug(f"Credential: {res}")
   return res
